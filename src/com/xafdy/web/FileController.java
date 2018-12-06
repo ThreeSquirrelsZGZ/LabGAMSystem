@@ -1,4 +1,6 @@
-﻿package com.xafdy.web;
+
+
+package com.xafdy.web;
 
 import com.xafdy.model.FileAttachment;
 import com.xafdy.service.FileService;
@@ -21,9 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @Controller
 @RequestMapping("/file")
-public class FileController {
+public class FileController{
 
   @Resource
   private FileService fileService;

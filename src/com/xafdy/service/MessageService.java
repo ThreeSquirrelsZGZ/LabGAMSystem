@@ -15,11 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
+
 import com.xafdy.dao.MessageMapper;
 import com.xafdy.model.Message;
 
 @Service
-public class MessageService {
+public class MessageService{
 	@Resource
 	private MessageMapper messageMapper;
 	

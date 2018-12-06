@@ -3,6 +3,7 @@ package com.xafdy.web;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -21,13 +22,18 @@ import com.sun.beans.editors.DoubleEditor;
 import com.sun.beans.editors.FloatEditor;
 import com.sun.beans.editors.IntegerEditor;
 import com.sun.beans.editors.LongEditor;
+import com.xafdy.alg.HolidayStrategy;
+import com.xafdy.factory.PeopleFactory;
 import com.xafdy.model.Attendance;
 import com.xafdy.model.Dept;
 import com.xafdy.model.DeptSchedule;
 import com.xafdy.model.News;
+import com.xafdy.model.People;
 import com.xafdy.model.Project;
 import com.xafdy.model.User;
 import com.xafdy.model.UserSchedule;
+import com.xafdy.pwencode.EncodeOperation;
+import com.xafdy.pwencode.EncodeOperationAdapter;
 import com.xafdy.service.IndexService;
 
 @Controller
@@ -60,9 +66,19 @@ public class IndexController {
 		return mav;
 	}
 	
+	
+	
+	
+	//简单工厂
+	//Adapter 适配器
 	@RequestMapping("/userLogon")
 	public ModelAndView userLogon(String account, String password, Integer roleId, HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
+		
+		EncodeOperation operation=new EncodeOperationAdapter();
+		password=operation.encode1(operation.encode2(password));
+		
+		
 		map.put("account", account);
 		map.put("password", password);
 		map.put("roleId", roleId);
@@ -75,8 +91,10 @@ public class IndexController {
 				
 				return mav;
 			} else {
-				session.setAttribute("user", user);
-				if (user.getRoleId() == 0) {
+				PeopleFactory pf=new PeopleFactory();
+				People role=pf.findRole(user);
+				session.setAttribute("user", role);
+				if (role.getRoleId() == 0) {
 					return new ModelAndView("redirect:/index.html");
 				} else {
 					return new ModelAndView("redirect:/userIndex.html");
@@ -92,12 +110,12 @@ public class IndexController {
 		return new ModelAndView("redirect:logon.html");
 	}
 	
-	@RequestMapping("/teacherIndex")
-	public ModelAndView teacherindex() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("teacherIndex");
-		return mav;
-	}
+//	@RequestMapping("/teacherIndex")
+//	public ModelAndView teacherindex() {
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("teacherIndex");
+//		return mav;
+//	}
 	
 	@RequestMapping("/createUser")
 	public ModelAndView createUser() {
@@ -395,15 +413,37 @@ public class IndexController {
 	@RequestMapping("/saveAttendance")
 	public ModelAndView saveAttendance(Attendance attendance) {
 		indexService.saveAttendence(attendance);
+		//System.out.println("attendance.day:"+attendance.getRecordDate());
 		
 		return new ModelAndView("redirect:/createAttendance.html");
 	}
 	
+	
+	
+	//策略模式
 	@RequestMapping("/searchAttendance")
 	public ModelAndView searchAttendance() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("attendances", indexService.getAttendance());
-		
+		HolidayStrategy hs=new HolidayStrategy();
+		List<Attendance> attendanceList=indexService.getAttendance();
+		List<Project> projectList=indexService.getProject();
+		for(int i=0;i<attendanceList.size();i++){
+			Attendance atten=attendanceList.get(i);
+			for(int j=0;j<projectList.size();j++){
+				Project pro=projectList.get(j);
+				if((pro.getUserid()==atten.getUserId())&&(atten.getRecordDate().getMonth()-1==pro.getEndDate().getMonth())&&(atten.getRecordDate().getYear()==pro.getEndDate().getYear())){					
+					//System.out.println("pro:"+pro.getUserid()+" atten:"+atten.getUserId());
+					//System.out.println(atten.getRecordDate().getYear());
+					atten.setVacation(hs.arrangeholidays(atten.getRecordDate().getYear(),atten.getRecordDate().getMonth()-1,1));
+					break;
+				}
+				if(j==projectList.size()-1){
+					atten.setVacation(hs.arrangeholidays(atten.getRecordDate().getYear(),atten.getRecordDate().getMonth()-1,0));
+				}
+			}
+			attendanceList.set(i, atten);
+		}
+		mav.addObject("attendances", attendanceList);
 		mav.setViewName("searchAttendance");
 		return mav;
 	}
@@ -411,7 +451,32 @@ public class IndexController {
 	public ModelAndView searchAttendanceByUser(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user=(User) session.getAttribute("user");
-		mav.addObject("attendances", indexService.getAttendanceByUser(user.getId()));
+		//策略模式
+		HolidayStrategy hs=new HolidayStrategy();
+		List<Attendance> attendanceList=indexService.getAttendanceByUser(user.getId());
+		List<Project> projectList=indexService.getProjectByUser(user.getId());
+		for(int i=0;i<attendanceList.size();i++){
+			Attendance atten=attendanceList.get(i);
+			for(int j=0;j<projectList.size();j++){
+				Project pro=projectList.get(j);
+				if((atten.getRecordDate().getMonth()==pro.getEndDate().getMonth()-1)&&(atten.getRecordDate().getYear()==pro.getEndDate().getYear())){
+					atten.setVacation(hs.arrangeholidays(atten.getRecordDate().getYear(),atten.getRecordDate().getMonth()-1,1));
+					break;
+				}
+				if(j==projectList.size()-1){
+					atten.setVacation(hs.arrangeholidays(atten.getRecordDate().getYear(),atten.getRecordDate().getMonth()-1,0));
+				}
+			}
+			if(projectList.size()==0){
+				atten.setVacation(hs.arrangeholidays(atten.getRecordDate().getYear(),atten.getRecordDate().getMonth()-1,0));
+			}
+			attendanceList.set(i, atten);
+		}
+		
+		
+		
+		
+		mav.addObject("attendances", attendanceList);
 		mav.setViewName("searchAttendance");
 		return mav;
 	}
@@ -496,10 +561,9 @@ public class IndexController {
 	@RequestMapping("/searchProject")
 	public ModelAndView searchProject(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		User user=(User) session.getAttribute("user");
+		People user=(People) session.getAttribute("user");
 		Integer id= user.getId();
-		if(user.getRoleId()==0)
-		{
+		if(user.getRoleId()==0){
 			id=0;
 		}
 		mav.addObject("projects", indexService.getProjectByUser(id));
@@ -558,7 +622,7 @@ public class IndexController {
 	@RequestMapping("/saveUserSchedule")
 	public ModelAndView saveUserSchedule(UserSchedule userSchedule,HttpSession session) {
 		
-		User user=(User) session.getAttribute("user");
+		People user=(People) session.getAttribute("user");
 		userSchedule.setUserId(user.getId()); 
 		indexService.saveUserSchedule(userSchedule);
 		
@@ -589,7 +653,7 @@ public class IndexController {
 	@RequestMapping("/searchUserSchedule")
 	public ModelAndView searchUserSchedule(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		User user=(User) session.getAttribute("user");
+		People user=(People) session.getAttribute("user");
 		mav.addObject("userSchedules", indexService.getUserSchedules(user.getId()));
 		mav.setViewName("searchUserSchedule");
 		return mav;

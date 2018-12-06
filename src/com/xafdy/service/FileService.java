@@ -1,3 +1,4 @@
+
 package com.xafdy.service;
 
 import com.xafdy.dao.FileAttachmentMapper;
@@ -19,18 +20,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-
 @Service
-public class FileService {
+public class FileService{
 
   @Resource
   private FileAttachmentMapper fileAttachmentMapper;
-
+  
+  //private Father fa=new myFile();
   /**
    * 上传文件
    */
   public void uploadFile(FileAttachment fileAttachment) {
-    fileAttachmentMapper.saveFile(fileAttachment);
+//	System.out.println("myFile");
+	  fileAttachmentMapper.saveFile(fileAttachment);
   }
 
   /**
@@ -90,5 +92,7 @@ public void deleteFile(Integer id) {
 	fileAttachmentMapper.deleteOutEntity(id);
 	
 }
+
+
 
 }

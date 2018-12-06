@@ -1,5 +1,6 @@
 package com.xafdy.web;
 import com.xafdy.model.Message;
+import com.xafdy.model.People;
 import com.xafdy.model.User;
 import com.xafdy.service.IndexService;
 import com.xafdy.service.MessageService;
@@ -28,20 +29,25 @@ public class MessageController {
 	private MessageService messageService;
 	@Resource
 	private IndexService indexService;
+//	@Resource
+//	private services1 service;
 	
 	@RequestMapping(value = "/inbox.html")
 	  public ModelAndView inbox(HttpSession session) {
+		//service=new MessageService();
 		ModelAndView mav = new ModelAndView();
-		User user=(User) session.getAttribute("user");
+		People user=(People) session.getAttribute("user");
 		Integer receiverid=user.getId();
-	    mav.addObject("messageList", messageService.getInMessages(receiverid));
+	    //mav.addObject("messageList", messageService.getInMessages(receiverid));
+		mav.addObject("messageList", messageService.getInMessages(receiverid));
 	    mav.setViewName("inbox");
 	    return mav;
 	  }
 	@RequestMapping(value = "outbox.html", method = RequestMethod.GET)
 	  public ModelAndView outbox(HttpSession session) {
+		//service=new MessageService();
 	    ModelAndView mav = new ModelAndView();
-	    User user=(User) session.getAttribute("user");
+	    People user=(People) session.getAttribute("user");
 		Integer sendid=user.getId();
 	    mav.addObject("messageList", messageService.getOutMessages(sendid));
 	    mav.setViewName("outbox");
@@ -49,8 +55,9 @@ public class MessageController {
 	  }
 	@RequestMapping(value = "sendmessage.html", method = RequestMethod.GET)
 	  public ModelAndView sendmessage(HttpSession session) {
+		//service=new IndexService();
 		ModelAndView mav = new ModelAndView();
-		User user=(User) session.getAttribute("user");
+		People user= (People) session.getAttribute("user");
 		Integer userid=user.getId();
 		mav.addObject("users", indexService.getMessageUsers(userid));
 	    mav.setViewName("sendmessage");
@@ -64,7 +71,7 @@ public class MessageController {
     		 @RequestParam("content") String content,
             @RequestParam("file") MultipartFile file,
             HttpSession session) throws Exception {
-		
+//		service=new IndexService();
         
         //如果文件不为空，写入上传路径
 		String filename="";
@@ -92,12 +99,14 @@ public class MessageController {
         	User receiver=indexService.getUserById(Integer.valueOf(t));
         	message.setReceivername(receiver.getName());
         	message.setSenddelete(0);
-        	User user=(User) session.getAttribute("user");
+        	People user=(People) session.getAttribute("user");
         	message.setSendid(user.getId());
         	message.setSendname(user.getName());
         	message.setSendtime(new Date());
         	message.setTitle(title);
         	message.setFilename(filename);
+        	
+ //       	service=new MessageService();
         	messageService.saveMessage(message); 
         }
         return new ModelAndView("redirect:/message/outbox.html");
@@ -106,16 +115,19 @@ public class MessageController {
      }
 	 @RequestMapping(value = "deleteInMessage.html", method = RequestMethod.GET)
 	  public ModelAndView deleteInMessage(@RequestParam("id") Integer id) {
-		messageService.deleteInMessage(id);
+//		 service=new MessageService();
+		 messageService.deleteInMessage(id);
 		return new ModelAndView("redirect:/message/inbox.html");
 	  }
 	 @RequestMapping(value = "deleteOutMessage.html", method = RequestMethod.GET)
 	  public ModelAndView deleteOutMessage(@RequestParam("id") Integer id) {
-		messageService.deleteOutMessage(id);
+//		 service=new MessageService();
+		 messageService.deleteOutMessage(id);
 		return new ModelAndView("redirect:/message/outbox.html");
 	  }
 	 @RequestMapping(value = "getMessage.html", method = RequestMethod.GET)
 	  public ModelAndView getMessage(@RequestParam("id") Integer id) {
+//		 service=new MessageService();
 		Message message=messageService.getMessage(id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("message", message);
@@ -132,7 +144,7 @@ public class MessageController {
 	 @RequestMapping(value = "downloadFile.html")
 	  public void downloadFile(HttpServletResponse response,HttpServletRequest request, @RequestParam("id") Integer id)
 	      throws UnsupportedEncodingException {
-		 
+//		 service=new MessageService();
 		 Message message=messageService.getMessage(id);
 		 messageService.downloadFile(message.getFilename(), response,request);
 

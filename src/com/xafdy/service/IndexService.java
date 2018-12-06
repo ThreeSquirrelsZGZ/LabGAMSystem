@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.xafdy.alg.CalWages;
+import com.xafdy.alg.CalWagesbyAmount;
 import com.xafdy.dao.AttendanceMapper;
 import com.xafdy.dao.DeptMapper;
 import com.xafdy.dao.DeptScheduleMapper;
@@ -25,9 +27,11 @@ import com.xafdy.model.News;
 import com.xafdy.model.Project;
 import com.xafdy.model.User;
 import com.xafdy.model.UserSchedule;
+import com.xafdy.pwencode.EncodeOperation;
+import com.xafdy.pwencode.EncodeOperationAdapter;
 
 @Service("index")
-public class IndexService {
+public class IndexService{
 	@Resource
 	private UserMapper userMapper;
 	
@@ -56,6 +60,11 @@ public class IndexService {
 	private UserScheduleMapper userScheduleMapper;
 	
 	public void saveUser(User user) {
+		EncodeOperation operation=new EncodeOperationAdapter();
+		String password=user.getPassword();
+		password=operation.encode1(operation.encode2(password));
+		user.setPassword(password);
+		
 		userMapper.saveEntity(user);
 	}
 	
@@ -72,6 +81,22 @@ public class IndexService {
 	}
 	
 	public void updateUser(User user) {
+		EncodeOperation operation=new EncodeOperationAdapter();
+		User userori=userMapper.getEntityById(user.getId());
+		if(!user.getPassword().equals(userori.getPassword())){
+			String password=user.getPassword();
+			user.setPassword(operation.encode1(operation.encode2(password)));
+		}
+		
+//		String password=user.getPassword();
+//		password=operation.encode1(operation.encode2(password));
+//		
+//		String password1=operation.encode1(operation.encode2(password));
+//		String passwordori=operation.encode1(operation.encode2(userori.getPassword()));
+//		if(!passwordori.equals(password1)){
+//			user.setPassword(password);
+//		}
+		
 		userMapper.updateEntity(user);
 	}
 	
@@ -83,6 +108,7 @@ public class IndexService {
 		return userMapper.searchEntity();
 	}
 	public List<User> getMessageUsers(Integer userid) {
+		//System.out.println("userid"+userid);
 		return userMapper.searchMessageEntity(userid);
 	}
 	public void deleteUsers(Integer id) {
@@ -152,9 +178,17 @@ public class IndexService {
 		newsMapper.deleteEntity(id);
 	}
 	
-	
+	//Template模板模式
 	public void saveAttendence(Attendance attendance) {
 		attendanceMapper.saveEntity(attendance);
+		
+		CalWages cw=new CalWagesbyAmount();
+		User user = this.getUserById(attendance.getUserId());
+		//项目数量
+		int projectNum=this.getProjectByUser(attendance.getUserId()).size();
+		System.out.println("attendance.getRealAmount()+projectNum"+attendance.getRealAmount()+projectNum);
+		user.setWages(cw.cal(attendance.getRealAmount(), projectNum));
+		this.updateUser(user);
 	}
 	
 	public List<Attendance> getAttendance() {
@@ -222,5 +256,6 @@ public class IndexService {
 		return attendanceMapper.searchByUser(userid);
 	}
 
+	
 	
 }
