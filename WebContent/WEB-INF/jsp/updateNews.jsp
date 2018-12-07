@@ -28,9 +28,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">  
-				<li><a href="#">实验室督勤管理系统</a></li>
-	            <li><a href="#">新闻管理</a></li>
-	            <li><a href="#">发布新闻</a></li>
+				<li>实验室督勤管理系统</li>
+	            <li>公告管理</li>
+	            <li>发布公告</li>
 			</ul>
 		</div>
 	</div>
@@ -38,28 +38,28 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default wk-panel ">
-				<div class="panel-heading">发布新闻 Create Data</div>
+				<div class="panel-heading">发布公告 </div>
 				<form action="<%=basePath%>editNews/${news.id}.html" method="POST">
 					<div class="panel-body">
 						<div class="row">
 							<div class="form-inline">
 								<div class="form-group">
-									<label for="filePath" class="control-label wk-filed-label">新闻标题:
+									<label for="filePath" class="control-label wk-filed-label">公告标题:
 									</label>
 									<div class="input-group">
 										<input required="required" value="${news.title}" name="title" type="text"
 											class="form-control wk-normal-input"
-											placeholder="请输入新闻标题" />
+											placeholder="请输入公告标题" />
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="filePath" class="control-label wk-filed-label">:
+									<label for="filePath" class="control-label wk-filed-label">公告内容:
 									</label>
 									<div class="input-group">
 										<input required="required" value="${news.content}" name="content" type="text"
 											class="form-control wk-long-2col-input" height="500px;"
-											placeholder="请输入新闻内容" />
+											placeholder="请输入公告内容" />
 									</div>
 								</div>
 								

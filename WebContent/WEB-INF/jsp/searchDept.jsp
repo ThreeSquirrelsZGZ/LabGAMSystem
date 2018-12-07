@@ -31,9 +31,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">
-				<li><a href="#">实验室督勤管理系统</a></li>
-	            <li><a href="#">人员管理</a></li>
-	            <li><a href="#">查询课题组</a></li>
+				<li>实验室督勤管理系统</li>
+	            <li>人员管理</li>
+	            <li>查询课题组</li>
 			</ul>
 		</div>
 	</div>
@@ -42,7 +42,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default wk-panel wk-table-tools-panel">
                 <div class="panel-heading">
-                    工具栏 Tools
+                    工具栏
                 </div>
                 <div class="panel-body">
 	                <button id="deleteBtn" type="button" class="btn btn-default wk-tool-btn">删除</button>

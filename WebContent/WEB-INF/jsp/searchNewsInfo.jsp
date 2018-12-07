@@ -30,9 +30,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">
-				<li><a href="#">实验室督勤管理系统</a></li>
-	            <li><a href="#">新闻管理</a></li>
-	            <li><a href="#">新闻查询</a></li>
+				<li>实验室督勤管理系统</li>
+	            <li>公告管理</li>
+	            <li>公告查询</li>
 			</ul>
 		</div>
 	</div>
@@ -44,8 +44,8 @@
 					<thead>
 						<tr>
 							
-							<th>新闻标题</th>
-							<th>新闻内容</th>
+							<th>公告标题</th>
+							<th>公告内容</th>
 							<th>发布人</th>
 							<th>发布时间</th>
 							<!-- <th>操作</th>-->

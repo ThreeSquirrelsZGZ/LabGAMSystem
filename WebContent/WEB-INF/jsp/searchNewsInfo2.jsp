@@ -30,7 +30,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">
-				<li><a href="#">公告</a></li>
+				<li>公告</a></li>
 	            
 			</ul>
 		</div>
@@ -43,8 +43,8 @@
 					<thead>
 						<tr>
 							
-							<th>新闻标题</th>
-							<th>新闻内容</th>
+							<th>公告标题</th>
+							<th>公告内容</th>
 							<th>发布人</th>
 							<th>发布时间</th>
 							<!-- <th>操作</th>-->

@@ -27,9 +27,9 @@
 <div class="row">
     <div class="col-lg-12">
         <ul class="breadcrumb wk-breadcrumb">
-            <li><a href="#">实验室督勤管理系统</a></li>
-            <li><a href="#">邮件管理</a></li>
-            <li><a href="#">发送邮件</a></li>
+            <li>实验室督勤管理系统</li>
+            <li>邮件管理</li>
+            <li>发送邮件</li>
         </ul>
     </div>
 </div>

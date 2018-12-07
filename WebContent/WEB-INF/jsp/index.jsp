@@ -32,6 +32,7 @@
 </head>
 
 <body>
+<!--  
     <div class="row" >
         <div class="col-lg-12">
             <div class="banner" id="banner"></div>
@@ -89,7 +90,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default wk-menu-panel-header">
                         <div class="panel-body wk-menu-panel-body">
-                            实验室
+                            相关管理
                         </div>
                     </div>
                 </div>
