@@ -6,8 +6,6 @@
 				pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
 		</Console>
 
-		
-		
 		<!-- DEFAULT-APPENDER 被加入到Root表示INFO级别错误会被记录到log_info文件中 -->
 		<RollingRandomAccessFile name="DEFAULT-APPENDER"
 			fileName="/example_log/log_info.log" filePattern="/example_log/$${date:yyyy-MM-dd}/log_info_%d{MM_dd}_%i.log">

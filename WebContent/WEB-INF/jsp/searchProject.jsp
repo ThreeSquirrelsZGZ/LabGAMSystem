@@ -30,9 +30,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">
-				<li><a href="#">实验室督勤管理系统</a></li>
-	            <li><a href="#">项目管理</a></li>
-	            <li><a href="#">查询项目</a></li>
+				<li>实验室督勤管理系统</li>
+	            <li>项目管理</li>
+	            <li>查询项目</li>
 			</ul>
 		</div>
 	</div>
@@ -64,8 +64,8 @@
 							<th>项目预算</th>
 							<th>项目主题</th>
 							<th>申请人</th>
-							<th>状态</th>
-							<th>操作</th>
+							<!-- <th>状态</th>
+							<th>操作</th>  -->
 						</tr>
 					</thead>
 					<tbody>

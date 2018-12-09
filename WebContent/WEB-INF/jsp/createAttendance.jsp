@@ -28,9 +28,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">  
-				 <li><a href="#">实验室督勤管理系统</a></li>
-	            <li><a href="#">签到管理</a></li>
-	            <li><a href="#">签到数据录入</a></li>
+				 <li>实验室督勤管理系统</li>
+	            <li>签到管理</li>
+	            <li>签到数据录入</li>
 			</ul>
 		</div>
 	</div>
@@ -38,7 +38,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default wk-panel ">
-				<div class="panel-heading">签到数据录入 Create Data</div>
+				<div class="panel-heading">签到数据录入</div>
 				<form action="<%=basePath%>saveAttendance.html" method="POST">
 					<div class="panel-body">
 						<div class="row">
@@ -47,6 +47,11 @@
 									<label for="filePath" class="control-label wk-filed-label">选择时间:
 									</label>
 									<div class="input-group">
+										<input required="required" name="recordDate" type="date"
+											class="form-control wk-normal-input"
+											placeholder="输入格式为:xxx-xx-xx" />
+									</div>
+									<!-- <div class="input-group">
 										<select class="wk-select" name="recordDate">
 											<option value="2018-04-01">2018-04-01</option>
 											<option value="2018-04-01">2018-05-01</option>
@@ -65,7 +70,7 @@
 											<option value="2018-04-01">2019-06-01</option>
 											<option value="2018-04-01">2019-07-01</option>
 										</select>
-									</div>
+									</div> -->
 								</div>
 								
 								<div class="form-group">
@@ -111,12 +116,12 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="filePath" class="control-label wk-filed-label">调休天数:
-									</label>
-									<div class="input-group">
+									<!-- <label for="filePath" class="control-label wk-filed-label">调休天数:
+									</label>  -->
+									<div class="input-group" style="display:none;">
 										<input required="required" name="vacation" type="number"
 											class="form-control wk-normal-input"
-											placeholder="请输入调休天数" />
+											placeholder="请输入调休天数" value="31" />
 									</div>
 								</div>
 								

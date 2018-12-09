@@ -26,9 +26,9 @@
 <div class="row">
     <div class="col-lg-12">
         <ul class="breadcrumb wk-breadcrumb">
-            <li><a href="#">实验室督勤管理系统</a></li>
-            <li><a href="#">项目管理</a></li>
-            <li><a href="#">编辑项目</a></li>
+            <li>实验室督勤管理系统</li>
+            <li>项目管理</li>
+            <li>编辑项目</li>
         </ul>
     </div>
 </div>
@@ -37,7 +37,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default wk-panel ">
                 <div class="panel-heading">
-                    新增项目 Create Data
+                    新增项目 
                 </div>
                 <form action="<%=basePath%>/editProject/${project.id}.html" method="POST">
                 <div class="panel-body">

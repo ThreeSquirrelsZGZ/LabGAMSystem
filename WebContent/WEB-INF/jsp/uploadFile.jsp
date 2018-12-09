@@ -35,9 +35,9 @@
 <div class="row">
     <div class="col-lg-12">
         <ul class="breadcrumb wk-breadcrumb">
-            <li><a href="#">实验室督勤管理系统</a></li>
-            <li><a href="#">文件管理</a></li>
-            <li><a href="#">文件上传</a></li>
+            <li>实验室督勤管理系统</li>
+            <li>文件管理</li>
+            <li>文件上传</li>
         </ul>
     </div>
 </div>

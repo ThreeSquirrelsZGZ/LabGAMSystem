@@ -30,9 +30,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">
-				<li><a href="#">实验室督勤管理系统</a></li>
-	            <li><a href="#">签到管理</a></li>
-	            <li><a href="#">签到数据查询</a></li>
+				<li>实验室督勤管理系统</li>
+	            <li>签到管理</li>
+	            <li>签到数据查询</li>
 			</ul>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 							<th>应出勤天数</th>
 							<th>请假天数</th>
 							<th>旷工天数</th>
-							<th>调休天数</th>
+							<th>放假天数</th>
 							<th>实际出勤天数</th>
 						</tr>
 					</thead>

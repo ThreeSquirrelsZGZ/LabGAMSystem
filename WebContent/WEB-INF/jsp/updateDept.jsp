@@ -26,9 +26,9 @@
 <div class="row">
     <div class="col-lg-12">
         <ul class="breadcrumb wk-breadcrumb">
-            <li><a href="#">实验室督勤管理系统</a></li>
-            <li><a href="#">人员管理</a></li>
-            <li><a href="#">编辑课题组</a></li>
+            <li>实验室督勤管理系统</li>
+            <li>人员管理</li>
+            <li>编辑课题组</li>
         </ul>
     </div>
 </div>
@@ -37,7 +37,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default wk-panel ">
                 <div class="panel-heading">
-                    编辑部门 Update Data
+                    编辑部门 
                 </div>
                 <form action="<%=basePath%>/editDept/${dept.id}.html" method="POST">
                 <div class="panel-body">

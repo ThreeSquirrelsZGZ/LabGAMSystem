@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szss.dao.FileAttachmentMapper">
+  <resultMap id="BaseResultMap" type="com.szss.model.FileAttachment">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="user_id" jdbcType="INTEGER" property="userId"/>
+    <result column="download_count" jdbcType="INTEGER" property="downLoadCount"/>
+    <result column="upload_time" jdbcType="VARCHAR" property="uploadTime"/>
+    <result column="size" jdbcType="VARCHAR" property="size"/>
+    <result column="path" jdbcType="VARCHAR" property="path"/>
+  </resultMap>
+  <select id="getFiles" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT * FROM fileattchment where 1=1
+    <if test="userId != null and '' != userId">
+      and user_id=#{userId}
+    </if>
+  </select>
+
+  <insert id="saveFile" parameterType="com.szss.model.FileAttachment">
+    insert into fileattchment (name, user_id,upload_time,size,path,download_count
+    )
+    values (#{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{uploadTime,jdbcType=VARCHAR},
+     #{size,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR},0
+    )
+  </insert>
+
+  <update id="updateCount" >
+    update fileattchment set
+    download_count = #{0}
+    where id = #{1}
+  </update>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT * FROM fileattchment where id=#{id}
+  </select>
+<delete id="deleteOutEntity" parameterType="java.lang.Integer">
+  	DELETE FROM fileattchment WHERE id = #{id}
+  </delete> 
+
+</mapper>

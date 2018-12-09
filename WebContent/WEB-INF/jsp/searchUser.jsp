@@ -29,9 +29,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul class="breadcrumb wk-breadcrumb">
-            <li><a href="#">实验室督勤管理系统</a></li>
-            <li><a href="#">人员管理</a></li>
-            <li><a href="#">学生查询</a></li>
+            <li>实验室督勤管理系统</li>
+            <li>人员管理</li>
+            <li>学生查询</li>
         </ul>
 		</div>
 	</div>
@@ -40,7 +40,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default wk-panel wk-table-tools-panel">
                 <div class="panel-heading">
-                    工具栏 Tools
+                    工具栏 
                 </div>
                 <div class="panel-body">
 	                <button id="deleteBtn" type="button" class="btn btn-default wk-tool-btn">删除</button>
@@ -67,7 +67,7 @@
 							<th>身份证号</th>
 							<th>登录账号</th>
 							<th>登录密码</th>
-							<th>当前项目</th>
+							<!-- <th>当前项目</th>  -->
 						</tr>
 					</thead>
 					<tbody>
@@ -84,7 +84,7 @@
 							<th>${var.idCardNo}</th>
 							<th>${var.account}</th>
 							<th>${var.password}</th>
-							<th>${var.projectName}</th>
+							<!-- <th>${var.projectName}</th>  -->
 						</tr>
 						</c:forEach>
 					</tbody>
